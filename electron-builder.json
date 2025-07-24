@@ -1,6 +1,7 @@
 {
     "appId":"com.alpe.electron",
     "files":["dist-electron","dist-electron"],
+    "extraResources":["dist-electron/preload.cjs"],
     "icon":"./alpe.png",
     "mac":{
         "target":"dmg"
