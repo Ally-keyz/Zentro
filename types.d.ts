@@ -12,6 +12,11 @@ type staticData = {
         totalStorageMBS : number ;
 };
 
+type EventPayLoadMapping = {
+     statistics : Statistics,
+     getStaticData : staticData
+}
+
 
 interface Window {
     electron :{
