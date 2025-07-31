@@ -1,27 +1,30 @@
-import { app , BrowserWindow, ipcMain} from 'electron'
-import path from 'path'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import { ipcHandle, isDev } from './utils.js'
-import { getStaticData, pollResource } from './resourceManager.js';
-import { getPreloadPath, getUiPath } from './pathResolver.js';
+import { getStaticData, pollResource } from './resourceManager.js'
+import { getPreloadPath, getUiPath } from './pathResolver.js'
+import path from 'path'
 
-
-
-app.on('ready' , ()=>{
-    const mainWindow = new BrowserWindow({
-        webPreferences:{
-            preload: getPreloadPath()
-        }
-    });
-    if(isDev()){
-        mainWindow.loadURL("http://localhost:5123")
-    }else{
-          mainWindow.loadFile(getUiPath());
+app.on('ready', () => {
+  const mainWindow = new BrowserWindow({
+    width: 800,              
+    resizable: false,  
+    frame: false,         
+    webPreferences: {
+      preload: getPreloadPath(),
+      contextIsolation: true, // for security
+      nodeIntegration: false,
     }
-    
-    pollResource(mainWindow);
+  })
 
-    ipcHandle('getStaticData',()=>{
-    return getStaticData();
-    })
+  if (isDev()) {
+    mainWindow.loadURL("http://localhost:5123")
+  } else {
+    mainWindow.loadFile(getUiPath())
+  }
+
+  pollResource(mainWindow)
+
+  ipcHandle('getStaticData', () => {
+    return getStaticData()
+  })
 })
-

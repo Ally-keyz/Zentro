@@ -12,15 +12,26 @@ type staticData = {
         totalStorageMBS : number ;
 };
 
-type EventPayLoadMapping = {
-     statistics : Statistics,
-     getStaticData : staticData
+interface EventPayLoadMapping {
+  'statistics': {
+    CpuUsage: number;
+    RamUsage: number;
+    storageData: number;
+  };
+  'getStaticData': {
+    cpuModel: string;
+    totalStorage: number;
+    freeSpace: number;
+    totalStorageMBS: number;
+  };
 }
 
-
 interface Window {
-    electron :{
-        subscribeStatistics : (callback : (statistics : Statistics) => void) => void;
-        getStaticData:() => Promise<staticData>;
-    }
+  electron: {
+    subscribeStatistics: (callback: (stats: EventPayLoadMapping['statistics']) => void) => void;
+    getStaticData: () => Promise<EventPayLoadMapping['getStaticData']>;
+    minimize: () => void;
+    maximize: () => void;
+    close: () => void;
+  };
 }
