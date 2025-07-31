@@ -1,8 +1,8 @@
 
 type Statistics = {
-    CpuUsage : number ;
-    RamUsage : number ;
-    storageData : number ;
+    CpuUsage : number ,
+    RamUsage : number ,
+    storageData : number 
 };
 
 type staticData = {
