@@ -6,8 +6,7 @@ import path from 'path'
 
 app.on('ready', () => {
   const mainWindow = new BrowserWindow({
-    width: 800,              
-    resizable: false,  
+    width: 800,                
     frame: false,         
     webPreferences: {
       preload: getPreloadPath(),
